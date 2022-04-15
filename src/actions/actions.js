@@ -43,3 +43,8 @@ export const fetchQuestionAction = (token) => async (dispatch) => {
     dispatch({ type: 'FETCH_QUESTIONS_ERROR', payload: error });
   }
 };
+
+export const audioAction = (audio) => ({
+  type: 'AUDIO',
+  payload: audio,
+});

@@ -2,10 +2,30 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import winSoundTrack from '../assets/audio/The Fat and the Rats.mp3';
 import Header from '../components/Header';
+import rankingStorage from '../services/FeedbackStorage';
 import styles from './Feedback.module.css';
 
 class Feedback extends Component {
+  componentDidMount() {
+    const { audio, acertos, pontuação, nome } = this.props;
+    audio.pause();
+
+    const MIN_GOOD = 3;
+    if (acertos >= MIN_GOOD) {
+      const winningSong = new Audio(winSoundTrack);
+      winningSong.volume = 0.1;
+      const winningSongStop = 41000;
+      winningSong.play();
+      setTimeout(() => {
+        winningSong.pause();
+      }, winningSongStop);
+    }
+
+    rankingStorage(nome, acertos, pontuação);
+  }
+
   render() {
     const { acertos, pontuação } = this.props;
     const MIN_GOOD = 3;
@@ -76,11 +96,17 @@ class Feedback extends Component {
 Feedback.propTypes = {
   acertos: PropTypes.number.isRequired,
   pontuação: PropTypes.number.isRequired,
+  audio: PropTypes.shape({
+    pause: PropTypes.func.isRequired,
+  }).isRequired,
+  nome: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   acertos: state.player.assertions,
   pontuação: state.player.score,
+  audio: state.trivia.audio,
+  nome: state.player.name,
 });
 
 export default connect(mapStateToProps)(Feedback);

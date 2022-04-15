@@ -9,6 +9,11 @@ const trivia = (state = INITIAL_STATE, action) => {
       ...state,
       questions: action.payload,
     };
+  case 'AUDIO':
+    return {
+      ...state,
+      audio: action.payload,
+    };
   default:
     return state;
   }

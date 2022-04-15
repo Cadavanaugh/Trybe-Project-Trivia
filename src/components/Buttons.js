@@ -82,7 +82,6 @@ class Buttons extends Component {
 
   handleCorrectAnswer = () => {
     const { level, scoreDispatch, acertos, time } = this.props;
-    console.log(acertos);
 
     let difficulty = 0;
     const number = 10;
