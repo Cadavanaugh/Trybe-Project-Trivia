@@ -12,32 +12,60 @@ class Feedback extends Component {
     return (
       <>
         <Header />
-        <p data-testid="feedback-total-score">
-          {pontuação}
-        </p>
-        <p data-testid="feedback-total-question">
-          {acertos}
-        </p>
         <main className={ styles.main }>
           {
             acertos < MIN_GOOD ? (
               <>
-                <p data-testid="feedback-text">Could be better...</p>
+                <h2 data-testid="feedback-text">Could be better...</h2>
+                <div className={ styles.score }>
+                  <p data-testid="feedback-total-score">
+                    Score:
+                    {' '}
+                    {pontuação}
+                  </p>
+                  <p data-testid="feedback-total-question">
+                    Right questions:
+                    {' '}
+                    {acertos}
+                  </p>
+                </div>
                 <img src="https://c.tenor.com/y8SmzfXWrpUAAAAC/squid-game.gif" alt="Pink soldier shooting at camera." />
               </>
             ) : (
               <>
-                <p data-testid="feedback-text">Well Done!</p>
+                <h2 data-testid="feedback-text">Well Done!</h2>
+                <div className={ styles.score }>
+                  <p data-testid="feedback-total-score">
+                    Score:
+                    {' '}
+                    {pontuação}
+                  </p>
+                  <p data-testid="feedback-total-question">
+                    Right questions:
+                    {' '}
+                    {acertos}
+                  </p>
+                </div>
                 <img src="https://i0.wp.com/genxsingapore.com/wp-content/uploads/2021/10/moneybank.gif?resize=520%2C292&ssl=1" alt="Money falling inside giant pig vault." />
               </>
             )
           }
-          <Link to="/">
-            <input type="button" data-testid="btn-play-again" value="Play Again" />
-          </Link>
 
+          <Link to="/">
+            <input
+              type="button"
+              data-testid="btn-play-again"
+              value="Play Again"
+              className={ styles.button }
+            />
+          </Link>
           <Link to="ranking/">
-            <input type="button" data-testid="btn-ranking" value="Ranking" />
+            <input
+              type="button"
+              data-testid="btn-ranking"
+              value="Ranking"
+              className={ styles.button }
+            />
           </Link>
         </main>
       </>
