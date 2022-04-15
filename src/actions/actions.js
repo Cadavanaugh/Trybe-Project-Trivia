@@ -30,6 +30,11 @@ export const nextAction = (index) => ({
   payload: index,
 });
 
+export const resetTimeAction = (resetTime) => ({
+  type: 'SET_RESET',
+  payload: resetTime,
+});
+
 export const fetchQuestionAction = (token) => async (dispatch) => {
   dispatch({ type: 'FETCH_QUESTIONS_START' });
   try {
@@ -38,3 +43,8 @@ export const fetchQuestionAction = (token) => async (dispatch) => {
     dispatch({ type: 'FETCH_QUESTIONS_ERROR', payload: error });
   }
 };
+
+export const audioAction = (audio) => ({
+  type: 'AUDIO',
+  payload: audio,
+});

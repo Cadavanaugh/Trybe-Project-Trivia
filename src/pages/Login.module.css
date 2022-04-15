@@ -9,6 +9,10 @@
   padding: 5px;
 }
 
+.header a {
+  width: auto;
+}
+
 .background {
   height: 100vh;
   left: 0;
@@ -144,4 +148,11 @@ input:-webkit-autofill {
 
 .config svg {
   color: white;
+}
+
+@media screen and ( max-width : 640px ) {
+
+  .soldierWrapper img {
+    transform: scaleX(-1);
+  }
 }

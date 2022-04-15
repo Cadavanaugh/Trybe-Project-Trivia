@@ -3,14 +3,18 @@ import React, { Component } from 'react';
 import { DiAptana } from 'react-icons/di';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { fetchQuestionAction, fetchTokenAction, playerAction } from '../actions/actions';
+import {
+  audioAction,
+  fetchQuestionAction,
+  fetchTokenAction,
+  playerAction,
+} from '../actions/actions';
+import soundTrack2 from '../assets/audio/Pink Soldiers.mp3';
 import soundTrack from '../assets/audio/Way Back Then.mp3';
 import logo from '../assets/images/en-logo.png';
 import playgroundBackground from '../assets/images/no-soldier-playgorund.jpg';
 import soldiers from '../assets/images/soldiers.png';
-import './Login.css';
 import styles from './Login.module.css';
-import soundTrack2 from '../assets/audio/Pink Soldiers.mp3';
 
 class Login extends Component {
   state = {
@@ -19,6 +23,8 @@ class Login extends Component {
   }
 
   componentDidMount() {
+    const { resetGame } = this.props;
+    resetGame();
     const song = new Audio(soundTrack);
     song.volume = 0.1;
     song.loop = true;
@@ -38,7 +44,7 @@ class Login extends Component {
   }
 
   dispatches = async () => {
-    const { token, player, tokenState, questions, history } = this.props;
+    const { token, player, tokenState, questions, history, globalAudio } = this.props;
     const { email, name } = this.state;
     await token();
     player(email, name);
@@ -48,6 +54,7 @@ class Login extends Component {
     song.volume = 0.1;
     song.loop = true;
     song.play();
+    globalAudio(song);
   };
 
   startSong(song) {
@@ -140,6 +147,8 @@ Login.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
+  globalAudio: PropTypes.func.isRequired,
+  resetGame: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -150,6 +159,8 @@ const mapDispatchToProps = (dispatch) => ({
   token: () => dispatch(fetchTokenAction()),
   player: (email, nome) => dispatch(playerAction(email, nome)),
   questions: (token) => dispatch(fetchQuestionAction(token)),
+  globalAudio: (audio) => dispatch(audioAction(audio)),
+  resetGame: () => dispatch({ type: 'FULL_RESET' }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

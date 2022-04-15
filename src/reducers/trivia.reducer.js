@@ -9,6 +9,13 @@ const trivia = (state = INITIAL_STATE, action) => {
       ...state,
       questions: action.payload,
     };
+  case 'AUDIO':
+    return {
+      ...state,
+      audio: action.payload,
+    };
+  case 'FULL_RESET':
+    return INITIAL_STATE;
   default:
     return state;
   }

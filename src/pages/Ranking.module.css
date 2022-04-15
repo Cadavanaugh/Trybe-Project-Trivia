@@ -1,0 +1,40 @@
+.main {
+  background-color: rgba(50, 50, 50, 51%);
+  padding: 20px 0;
+  text-align: center;
+  width: 100%;
+}
+
+.main h1 {
+  margin: 0 auto;
+}
+
+.list {
+  margin: 25px auto;
+  width: 50%;
+}
+
+.list li {
+  display: flex;
+  flex-direction: row;
+}
+
+.button, .button input {
+  background-color: #037a76;
+  border: 3px solid #037a76;
+  border-radius: 5px;
+  bottom: 0;
+  color: white;
+  font-weight: 700;
+  margin: 0 auto;
+  outline: 0;
+  padding: 5px 0;
+  position: relative;
+  transition: 0.2s;
+  width: 48%;
+}
+
+.button:hover {
+  bottom: 3px;
+  cursor: pointer;
+}

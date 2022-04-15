@@ -2,7 +2,7 @@ import { decode } from 'he';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { nextAction, scoreAction } from '../actions/actions';
+import { nextAction, scoreAction, resetTimeAction } from '../actions/actions';
 import styles from './Buttons.module.css';
 
 class Buttons extends Component {
@@ -59,6 +59,8 @@ class Buttons extends Component {
   }
 
   handleClick = ({ target }) => {
+    const { resetTimeDispatch } = this.props;
+    resetTimeDispatch(true);
     const element = target.getAttribute('data-testid');
 
     if (element === 'correct-answer') {
@@ -79,12 +81,10 @@ class Buttons extends Component {
   }
 
   handleCorrectAnswer = () => {
-    const { assertions } = this.state;
-    const { level, scoreDispatch } = this.props;
+    const { level, scoreDispatch, acertos, time } = this.props;
 
     let difficulty = 0;
     const number = 10;
-    const time = 5;
     const tree = 3;
 
     if (level === 'hard') {
@@ -96,9 +96,7 @@ class Buttons extends Component {
     }
 
     const newScore = (number + (time * difficulty));
-    console.log('newScore: ', newScore);
-    const newAssertions = assertions + 1;
-    scoreDispatch(newAssertions, newScore);
+    scoreDispatch(acertos + 1, newScore);
   }
 
   showNextButton = () => {
@@ -115,42 +113,40 @@ class Buttons extends Component {
   render() {
     const { showNext, buttonsArray } = this.state;
     return (
-      <div data-testid="answer-options" className={ styles.options }>
-        {
-          buttonsArray.map(
-            (button) => (
-              <button
-                key={ button.key }
-                type="button"
-                data-testid={ button.props['data-testid'] }
-                className={ button.props.className }
-                onClick={ this.handleClick }
-              >
-                {button.props.children}
-              </button>),
-          )
-        }
+      <>
+        <div data-testid="answer-options" className={ styles.options }>
+          {
+            buttonsArray.map(
+              (button) => (
+                <button
+                  key={ button.key }
+                  type="button"
+                  data-testid={ button.props['data-testid'] }
+                  className={ button.props.className }
+                  onClick={ this.handleClick }
+                >
+                  {button.props.children}
+                </button>),
+            )
+          }
+        </div>
         {
           showNext && (
             <button
-              id="next-btn"
               data-testid="btn-next"
               type="button"
               onClick={ this.handleClickNext }
               className={ styles.next }
             >
-              Next
+              <p>Next</p>
             </button>
           )
         }
-      </div>
+
+      </>
     );
   }
 }
-
-// const mapStateToProps = (state) => ({
-//   time: state.timer.time,
-// });
 
 Buttons.propTypes = {
   correct: PropTypes.string.isRequired,
@@ -158,11 +154,20 @@ Buttons.propTypes = {
   level: PropTypes.string.isRequired,
   scoreDispatch: PropTypes.func.isRequired,
   nextDispatch: PropTypes.func.isRequired,
+  acertos: PropTypes.number.isRequired,
+  resetTimeDispatch: PropTypes.func.isRequired,
+  time: PropTypes.number.isRequired,
 };
+
+const mapStateToProps = (state) => ({
+  acertos: state.player.assertions,
+  time: state.timer.time,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   scoreDispatch: (assertions, score) => dispatch(scoreAction(assertions, score)),
   nextDispatch: () => dispatch(nextAction()),
+  resetTimeDispatch: (resetTime) => dispatch(resetTimeAction(resetTime)),
 });
 
-export default connect(null, mapDispatchToProps)(Buttons);
+export default connect(mapStateToProps, mapDispatchToProps)(Buttons);

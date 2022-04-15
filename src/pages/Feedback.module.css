@@ -1,0 +1,56 @@
+.main {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 auto;
+  max-width: 600px;
+}
+
+.main img {
+  border: 10px solid var(--pink);
+  width: 90%;
+}
+
+a {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  text-decoration: none;
+  width: 85%;
+}
+
+.button {
+  background-color: #037a76;
+  border: 3px solid #037a76;
+  border-radius: 5px;
+  bottom: 0;
+  color: white;
+  font-weight: 700;
+  outline: 0;
+  padding: 10px 0;
+  position: relative;
+  transition: 0.2s;
+  width: 100%;
+}
+
+.button:hover {
+  bottom: 3px;
+  cursor: pointer;
+}
+
+.score {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  width: 50%;
+}
+
+.score div {
+  display: flex;
+  flex-direction: row;
+}
+
+.score div span {
+  margin-right: 4px;
+}
