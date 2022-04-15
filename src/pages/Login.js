@@ -8,7 +8,6 @@ import soundTrack from '../assets/audio/Way Back Then.mp3';
 import logo from '../assets/images/en-logo.png';
 import playgroundBackground from '../assets/images/no-soldier-playgorund.jpg';
 import soldiers from '../assets/images/soldiers.png';
-import './Login.css';
 import styles from './Login.module.css';
 import soundTrack2 from '../assets/audio/Pink Soldiers.mp3';
 

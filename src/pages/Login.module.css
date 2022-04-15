@@ -145,3 +145,10 @@ input:-webkit-autofill {
 .config svg {
   color: white;
 }
+
+@media screen and ( max-width : 640px ) {
+
+  .soldierWrapper img {
+    transform: scaleX(-1);
+  }
+}
