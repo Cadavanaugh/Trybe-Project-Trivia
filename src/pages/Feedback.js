@@ -27,7 +27,7 @@ class Feedback extends Component {
   }
 
   render() {
-    const { acertos, pontuação, resetGame } = this.props;
+    const { acertos, pontuação } = this.props;
     const MIN_GOOD = 3;
     return (
       <>
@@ -38,16 +38,18 @@ class Feedback extends Component {
               <>
                 <h2 data-testid="feedback-text">Could be better...</h2>
                 <div className={ styles.score }>
-                  <p data-testid="feedback-total-score">
-                    Score:
-                    {' '}
-                    {pontuação}
-                  </p>
-                  <p data-testid="feedback-total-question">
-                    Right questions:
-                    {' '}
-                    {acertos}
-                  </p>
+                  <div>
+                    <span>Score: </span>
+                    <p data-testid="feedback-total-score">
+                      {pontuação}
+                    </p>
+                  </div>
+                  <div>
+                    <span>Right questions: </span>
+                    <p data-testid="feedback-total-question">
+                      {acertos}
+                    </p>
+                  </div>
                 </div>
                 <img src="https://c.tenor.com/y8SmzfXWrpUAAAAC/squid-game.gif" alt="Pink soldier shooting at camera." />
               </>
@@ -55,16 +57,18 @@ class Feedback extends Component {
               <>
                 <h2 data-testid="feedback-text">Well Done!</h2>
                 <div className={ styles.score }>
-                  <p data-testid="feedback-total-score">
-                    Score:
-                    {' '}
-                    {pontuação}
-                  </p>
-                  <p data-testid="feedback-total-question">
-                    Right questions:
-                    {' '}
-                    {acertos}
-                  </p>
+                  <div>
+                    <span>Score: </span>
+                    <p data-testid="feedback-total-score">
+                      {pontuação}
+                    </p>
+                  </div>
+                  <div>
+                    <span>Right questions: </span>
+                    <p data-testid="feedback-total-question">
+                      {acertos}
+                    </p>
+                  </div>
                 </div>
                 <img src="https://i0.wp.com/genxsingapore.com/wp-content/uploads/2021/10/moneybank.gif?resize=520%2C292&ssl=1" alt="Money falling inside giant pig vault." />
               </>
@@ -77,7 +81,6 @@ class Feedback extends Component {
               data-testid="btn-play-again"
               value="Play Again"
               className={ styles.button }
-              onClick={ resetGame }
             />
           </Link>
           <Link to="/ranking">
@@ -102,7 +105,6 @@ Feedback.propTypes = {
   }).isRequired,
   nome: PropTypes.string.isRequired,
   gravatarEmail: PropTypes.string.isRequired,
-  resetGame: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

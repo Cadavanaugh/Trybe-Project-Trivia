@@ -45,3 +45,12 @@ a {
   justify-content: space-between;
   width: 50%;
 }
+
+.score div {
+  display: flex;
+  flex-direction: row;
+}
+
+.score div span {
+  margin-right: 4px;
+}
