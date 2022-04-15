@@ -1,5 +1,10 @@
-export default function rankingStorage(name, assertions, score) {
-  const playerStats = { name, assertions, score };
+import md5 from 'crypto-js/md5';
+
+export default function rankingStorage(name, score, email) {
+  const playerStats = {
+    name,
+    score,
+    picture: `https://www.gravatar.com/avatar/${md5(email).toString()}` };
 
   if (localStorage.ranking === undefined) localStorage.ranking = '[]'; // Cria localStorage se vazio.
 

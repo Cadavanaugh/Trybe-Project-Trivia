@@ -23,6 +23,8 @@ class Login extends Component {
   }
 
   componentDidMount() {
+    const { resetGame } = this.props;
+    resetGame();
     const song = new Audio(soundTrack);
     song.volume = 0.1;
     song.loop = true;
@@ -146,6 +148,7 @@ Login.propTypes = {
     push: PropTypes.func.isRequired,
   }).isRequired,
   globalAudio: PropTypes.func.isRequired,
+  resetGame: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -157,6 +160,7 @@ const mapDispatchToProps = (dispatch) => ({
   player: (email, nome) => dispatch(playerAction(email, nome)),
   questions: (token) => dispatch(fetchQuestionAction(token)),
   globalAudio: (audio) => dispatch(audioAction(audio)),
+  resetGame: () => dispatch({ type: 'FULL_RESET' }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

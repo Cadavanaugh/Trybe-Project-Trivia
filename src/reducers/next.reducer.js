@@ -9,6 +9,8 @@ const next = (state = INITIAL_STATE, action) => {
       ...state,
       index: state.index + 1,
     };
+  case 'FULL_RESET':
+    return INITIAL_STATE;
   default:
     return state;
   }

@@ -9,7 +9,7 @@ import styles from './Feedback.module.css';
 
 class Feedback extends Component {
   componentDidMount() {
-    const { audio, acertos, pontuação, nome } = this.props;
+    const { audio, acertos, pontuação, nome, gravatarEmail } = this.props;
     audio.pause();
 
     const MIN_GOOD = 3;
@@ -23,11 +23,11 @@ class Feedback extends Component {
       }, winningSongStop);
     }
 
-    rankingStorage(nome, acertos, pontuação);
+    rankingStorage(nome, pontuação, gravatarEmail);
   }
 
   render() {
-    const { acertos, pontuação } = this.props;
+    const { acertos, pontuação, resetGame } = this.props;
     const MIN_GOOD = 3;
     return (
       <>
@@ -77,9 +77,10 @@ class Feedback extends Component {
               data-testid="btn-play-again"
               value="Play Again"
               className={ styles.button }
+              onClick={ resetGame }
             />
           </Link>
-          <Link to="ranking/">
+          <Link to="/ranking">
             <input
               type="button"
               data-testid="btn-ranking"
@@ -100,6 +101,8 @@ Feedback.propTypes = {
     pause: PropTypes.func.isRequired,
   }).isRequired,
   nome: PropTypes.string.isRequired,
+  gravatarEmail: PropTypes.string.isRequired,
+  resetGame: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -107,6 +110,7 @@ const mapStateToProps = (state) => ({
   pontuação: state.player.score,
   audio: state.trivia.audio,
   nome: state.player.name,
+  gravatarEmail: state.player.email,
 });
 
 export default connect(mapStateToProps)(Feedback);

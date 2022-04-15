@@ -23,6 +23,8 @@ const player = (state = INITIAL_STATE, action) => {
       // email: action.payload.email,
       score: action.payload.score + state.score,
     };
+  case 'FULL_RESET':
+    return INITIAL_STATE;
   default:
     return state;
   }
