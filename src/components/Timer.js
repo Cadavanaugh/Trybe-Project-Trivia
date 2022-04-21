@@ -23,7 +23,7 @@ class Timer extends Component {
           const { time } = this.state;
           const { timeDispatch } = this.props;
           timeDispatch(time);
-          if (time === 1) {
+          if (time === 0) {
             clearInterval(timer); // Para o timer
             // Colore os botões
             const buttons = document.querySelectorAll('button');
