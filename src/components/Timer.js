@@ -1,6 +1,6 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import { resetTimeAction, timeAction } from '../actions/actions';
 import styles from './Timer.module.css';
 
@@ -59,6 +59,7 @@ class Timer extends Component {
       clearTimeout(initialTimer);
       clearInterval(timer);
       resetTimeDispatch(false);
+      document.getElementById('progressBar').style.animationPlayState = 'paused';
     }
   }
 
@@ -68,7 +69,7 @@ class Timer extends Component {
       <div id="timer" className={ styles.timer }>
         <p>{time}</p>
         <div className={ styles.progressBar }>
-          <div />
+          <div id="progressBar" />
         </div>
       </div>
     );
