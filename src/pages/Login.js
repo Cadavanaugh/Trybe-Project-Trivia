@@ -1,8 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { DiAptana } from 'react-icons/di';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import {
   audioAction,
   fetchQuestionAction,
@@ -72,17 +70,6 @@ class Login extends Component {
     const { name, email, song } = this.state;
     return (
       <>
-        <header className={ styles.header }>
-          <Link to="/settings">
-            <button
-              data-testid="btn-settings"
-              type="button"
-              className={ styles.config }
-            >
-              <DiAptana />
-            </button>
-          </Link>
-        </header>
         <img
           src={ playgroundBackground }
           alt="Squid Game playground."
