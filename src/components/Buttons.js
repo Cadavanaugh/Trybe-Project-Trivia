@@ -2,7 +2,7 @@ import { decode } from 'he';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { nextAction, scoreAction, resetTimeAction } from '../actions/actions';
+import { nextAction, resetTimeAction, scoreAction } from '../actions/actions';
 import styles from './Buttons.module.css';
 
 class Buttons extends Component {
@@ -16,13 +16,10 @@ class Buttons extends Component {
   }
 
   componentDidMount() {
-    const {
-      correct,
-      incorrect } = this.props;
-    const options = [...incorrect, correct];
-
+    const { correct, incorrect } = this.props;
     // Embaralhar array: https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
     // Transformar elementos HTML em array: https://stackoverflow.com/questions/2735067/how-to-convert-a-dom-node-list-to-an-array-in-javascript
+    const options = [...incorrect, correct];
     const randomButtons = [...options]
       .map((alternativa, index) => (
         index === options.length - 1
@@ -106,12 +103,14 @@ class Buttons extends Component {
   }
 
   handleClickNext = () => {
-    const { nextDispatch } = this.props;
+    const { nextDispatch, dontShowMeNext } = this.props;
     nextDispatch();
+    dontShowMeNext();
   }
 
   render() {
     const { showNext, buttonsArray } = this.state;
+    const { showNextTimeout } = this.props;
     return (
       <>
         <div data-testid="answer-options" className={ styles.options }>
@@ -131,7 +130,7 @@ class Buttons extends Component {
           }
         </div>
         {
-          showNext && (
+          (showNext || showNextTimeout) && (
             <button
               data-testid="btn-next"
               type="button"
@@ -157,17 +156,21 @@ Buttons.propTypes = {
   acertos: PropTypes.number.isRequired,
   resetTimeDispatch: PropTypes.func.isRequired,
   time: PropTypes.number.isRequired,
+  showNextTimeout: PropTypes.bool.isRequired,
+  dontShowMeNext: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   acertos: state.player.assertions,
   time: state.timer.time,
+  showNextTimeout: state.next.showMeNextBtn,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   scoreDispatch: (assertions, score) => dispatch(scoreAction(assertions, score)),
   nextDispatch: () => dispatch(nextAction()),
   resetTimeDispatch: (resetTime) => dispatch(resetTimeAction(resetTime)),
+  dontShowMeNext: () => dispatch({ type: 'SHOW_NEXT', payload: false }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Buttons);

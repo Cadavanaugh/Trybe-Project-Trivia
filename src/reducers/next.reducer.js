@@ -1,5 +1,6 @@
 const INITIAL_STATE = {
   index: 0,
+  showMeNextBtn: false,
 };
 
 const next = (state = INITIAL_STATE, action) => {
@@ -11,6 +12,11 @@ const next = (state = INITIAL_STATE, action) => {
     };
   case 'FULL_RESET':
     return INITIAL_STATE;
+  case 'SHOW_NEXT':
+    return {
+      ...state,
+      showMeNextBtn: action.payload,
+    };
   default:
     return state;
   }

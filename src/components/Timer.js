@@ -17,6 +17,8 @@ class Timer extends Component {
   componentDidMount() {
     const ONE_SEC = 1000;
     const FIVE_SEC = 5000;
+    const { showMeNext } = this.props;
+
     const initialTimer = setTimeout(() => {
       const timer = setInterval(() => {
         this.setState((prevState) => ({ time: prevState.time - 1 }), () => {
@@ -25,6 +27,7 @@ class Timer extends Component {
           timeDispatch(time);
           if (time === 0) {
             clearInterval(timer); // Para o timer
+            showMeNext();
             // Colore os botões
             const buttons = document.querySelectorAll('button');
             buttons.forEach((singleButton) => {
@@ -78,18 +81,20 @@ class Timer extends Component {
 
 const mapStateToProps = (state) => ({
   resetTime: state.timer.resetTime,
+  showMeNextBtnFunc: state.next.showNextBtnFunc,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   timeDispatch: (time) => dispatch(timeAction(time)),
   resetTimeDispatch: (reset) => dispatch(resetTimeAction(reset)),
-
+  showMeNext: () => dispatch({ type: 'SHOW_NEXT', payload: true }),
 });
 
 Timer.propTypes = {
   resetTime: PropTypes.bool.isRequired,
   resetTimeDispatch: PropTypes.func.isRequired,
   timeDispatch: PropTypes.func.isRequired,
+  showMeNext: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Timer);
