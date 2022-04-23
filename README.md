@@ -16,3 +16,4 @@ This was a group project developed along with 4 coworkers using **SCRUM** agile 
  - TDD using **Cypress**.
 
 ## 📹 Demo
+https://user-images.githubusercontent.com/60260322/164859053-01eca266-ac97-4a33-904f-cedf5959f9d8.mp4
